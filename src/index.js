@@ -22,7 +22,7 @@ class Hello extends React.Component {
     
     super(props);
     this.state= {
-      value: '',
+      input_value: '',
     };
   };
   
@@ -31,11 +31,15 @@ class Hello extends React.Component {
     console.log("Add!");
   }
 
-  handleChange = (e) => {
+  handleValueChange = (e) => {
     console.log("handleChange:" +e.target.value);
+    //var changed= e.target.value;
+    
     this.setState({
-      value: e.target.value
+      input_value: e.target.value
     });
+    
+    this.props.handleClickAdd(e.target.value);
   }
 
   keyPressed() {
@@ -46,7 +50,7 @@ class Hello extends React.Component {
   render() {
     return(
       <div>
-        <input type="textbox" className="text" onKeyPress={this.keyPressed} onChange={this.handleChange}/>
+        <input type="textbox" className="text" onKeyPress={this.keyPressed} onChange={this.handleValueChange}/>
         <button
          onClick={this.handleClickAdd()}>Add</button>
       </div>
@@ -83,14 +87,14 @@ class Checklist extends React.Component {
 class Board extends React.Component {
   constructor(props) {
     super(props);
-    this.state= {
-      data: null,
-    };
+    this.state= { input: '' }
   }
   
-  state= { input: '' }
   parentFunction= (text) => {
     console.log("parentFunction=" +text);
+    this.setState({
+      input: text
+    });
   }
 
 
