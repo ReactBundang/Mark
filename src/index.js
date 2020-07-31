@@ -100,7 +100,7 @@ class Board extends React.Component {
   }
 
   renderTodo(i) {
-    return (<Checklist parentFunction={this.parentFunction} onClick={() => this.handleClick(i)}
+    return (<Checklist onClick={() => this.handleClick(i)}
       />
     );
   }
@@ -108,7 +108,7 @@ class Board extends React.Component {
   render() {
     return (
       <div>
-        <Hello name="react" color="red"/>
+        <Hello handleClickAdd={this.parentFunction}/>
         {this.renderTodo(0)}
       </div>
     );
