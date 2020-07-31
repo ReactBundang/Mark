@@ -32,21 +32,21 @@ class Hello extends React.Component {
 
   handleValueChange = (e) => {
     console.log("handleChange:" +e.target.value);
-    //var changed= e.target.value;
-    
-    this.setState({
-      input_value: e.target.value
-    });
-    
+    // 스테이트 변경 후.
+    this.setState({ input_value: e.target.value });
+    // 부모에게 콜백 보냄.
     this.props.DataCallback(e.target.value);
   }
 
   keyPressed() {
-    console.log("keyPressed");
+    //console.log("keyPressed");
   }
   
-  onClickAdd() {
+  onClickAdd= () => {
     console.log("Add!!");
+
+    // 부모에게 콜백 보냄.
+    this.props.AddCallback(this.state.input_value);
   }
 
   render() {
@@ -93,12 +93,15 @@ class Board extends React.Component {
   }
   
   parentFunction= (text) => {
-    console.log("parentFunction=" +text);
-    this.setState({
-      input: text
-    });
+    // console.log("parentFunction=" +text);
+    // this.setState({
+    //   input: text
+    // });
   }
 
+  AddFunction= (text) => {
+    console.log("AddFunction="+ text);
+  }
 
   handleClick(i) {
     this.setState({
@@ -114,7 +117,7 @@ class Board extends React.Component {
   render() {
     return (
       <div>
-        <Hello DataCallback={this.parentFunction}/>
+        <Hello DataCallback={this.parentFunction} AddCallback={this.AddFunction}/>
         {this.renderTodo(0)}
       </div>
     );
