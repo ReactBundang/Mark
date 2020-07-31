@@ -38,8 +38,11 @@ class Hello extends React.Component {
     this.props.DataCallback(e.target.value);
   }
 
-  keyPressed() {
-    //console.log("keyPressed");
+  keyPressed=(e)=> {
+    if(e.key === 'Enter') {
+      console.log("enter pressed.");
+      this.props.AddCallback(this.state.input_value);
+    }
   }
   
   onClickAdd= () => {
@@ -65,7 +68,6 @@ class Checklist extends React.Component {
   constructor(props){
     super(props);
     this.state= {
-      value: null,
     };
   }
 
@@ -74,7 +76,7 @@ class Checklist extends React.Component {
     return (
       <div>
         <input type="checkbox" className="box"/>
-        <input type="textbox" className="text"/>
+        <input type="textbox"  value={this.props.text} className="text"/>
       </div>
       // <button
       //   className="square"
@@ -89,7 +91,10 @@ class Checklist extends React.Component {
 class Board extends React.Component {
   constructor(props) {
     super(props);
-    this.state= { input: '' }
+    this.state= { 
+      input: '',
+      todos: ['aaa']
+     }
   }
   
   parentFunction= (text) => {
@@ -101,6 +106,9 @@ class Board extends React.Component {
 
   AddFunction= (text) => {
     console.log("AddFunction="+ text);
+    this.setState({
+      todos: this.state.todos.concat(text)
+    });
   }
 
   handleClick(i) {
@@ -108,9 +116,22 @@ class Board extends React.Component {
     });
   }
 
-  renderTodo(i) {
-    return (<Checklist onClick={() => this.handleClick(i)}
-      />
+  getArr() {
+    var divList= new Array();
+    console.log(this.state.todos.length);
+    for(var i=0; i<this.state.todos.length-1; i++) {}
+    {
+      divList.push(<Checklist text={this.state.todos[i]}/>);
+    }
+    console.log(divList);
+    return divList;
+  }
+
+  renderTodo(text) {
+    return (
+      <div>
+        {this.getArr()}
+      </div>
     );
   }
 
