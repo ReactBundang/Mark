@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import { Button } from '@material-ui/core';
+import { Input } from '@material-ui/core';
 import './index.css';
 
 // function Hello(props) {
@@ -27,9 +29,6 @@ class Hello extends React.Component {
   };
   
 
-  handleClickAdd() {
-    console.log("Add!");
-  }
 
   handleValueChange = (e) => {
     console.log("handleChange:" +e.target.value);
@@ -39,20 +38,23 @@ class Hello extends React.Component {
       input_value: e.target.value
     });
     
-    this.props.handleClickAdd(e.target.value);
+    this.props.DataCallback(e.target.value);
   }
 
   keyPressed() {
     console.log("keyPressed");
   }
   
+  onClickAdd() {
+    console.log("Add!!");
+  }
 
   render() {
     return(
       <div>
-        <input type="textbox" className="text" onKeyPress={this.keyPressed} onChange={this.handleValueChange}/>
-        <button
-         onClick={this.handleClickAdd()}>Add</button>
+        <Input type="textbox" className="text" onKeyPress={this.keyPressed} onChange={this.handleValueChange}/>
+        <Button color="primary" onClick={this.onClickAdd}>Add</Button>
+         <h1>{this.state.input_value}</h1>
       </div>
     );
   }
@@ -112,7 +114,7 @@ class Board extends React.Component {
   render() {
     return (
       <div>
-        <Hello handleClickAdd={this.parentFunction}/>
+        <Hello DataCallback={this.parentFunction}/>
         {this.renderTodo(0)}
       </div>
     );
