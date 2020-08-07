@@ -8,14 +8,14 @@ export const List = ({todos}) => {
     //const [value, loading, error] = useObject(firebase.database().ref('todos/1'));
     //const [value, loading, error] = useListVals<Todo>('todos');
 
-    const todoList= todos.map(todo => <li>{todo}</li>)
+    //const todoList= todos.map(todo => <li>{todo}</li>)
     return (
         <>
         <div>
-                <p>
-                    {error && <strong>Error: {error}</strong>}
-                    {loading && <span>Value: Loading...</span>}
-                </p>
+            <p>
+                {error && <strong>Error: {error}</strong>}
+                {loading && <span>Value: Loading...</span>}
+            </p>
         </div>
         <ul>
             {!loading && snapshots && (
@@ -27,7 +27,6 @@ export const List = ({todos}) => {
                 </span>
             </React.Fragment>
             )}
-            {todoList}
         </ul>
         </>
     )

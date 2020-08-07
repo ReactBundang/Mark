@@ -29,7 +29,8 @@ let firebaseConfig = {
   export const setFireDB=(last)=>{
         var a= database.ref('/todos/').once('value');
         a.then(res=>{
-            console.log(res.val());
-            database.ref(`todos/`).set([...res.val(), last]);
+            //console.log(res.val());
+            //console.log(last);
+            database.ref(`todos/`).set([...res.val(),last]);
         })
     }
