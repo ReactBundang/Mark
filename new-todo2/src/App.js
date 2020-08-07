@@ -1,18 +1,20 @@
 import React, {useState, useEffect} from 'react';
+
 import './App.css';
-import {fire,getFireDB} from './Firebase'
+import {fire,getFireDB,setFireDB} from './Firebase'
 import List from './List.jsx'
 import { Button } from '@material-ui/core';
 import { Input } from '@material-ui/core';
 
 
 const App= () => {
-  const [todos, setTodos] = useState(['ddddd']);
+  const [todos, setTodos] = useState(['sample']);
   const [newTodo, setNewTodo] = useState(); //입력값 저장용.
 
   // input 키입력 onChange 이벤트
   const InputChanged = (e) => {
     setNewTodo(e.target.value);
+    //fireTodo= e.target.value;
   }
 
   // firebase library 초기화
@@ -28,6 +30,7 @@ const App= () => {
   useEffect(() => {
     console.log("useEffect");
     getFireDB();//fire();
+    setFireDB(todos[todos.length-1]);
   }, [todos]);
 
   return (

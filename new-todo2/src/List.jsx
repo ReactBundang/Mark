@@ -3,9 +3,11 @@ import * as firebase from 'firebase'
 import { useList, useObject, useListVals } from 'react-firebase-hooks/database';
 
 export const List = ({todos}) => {
-    const [snapshots, loading, error] = useList(firebase.database().ref('todos'));
+    const db= firebase.database();
+    const [snapshots, loading, error] = useList(db.ref('todos'));
     //const [value, loading, error] = useObject(firebase.database().ref('todos/1'));
     //const [value, loading, error] = useListVals<Todo>('todos');
+
     const todoList= todos.map(todo => <li>{todo}</li>)
     return (
         <>
@@ -19,9 +21,8 @@ export const List = ({todos}) => {
             {!loading && snapshots && (
             <React.Fragment>
                 <span>
-                List:{' '}
                 {snapshots.map((v) => (
-                    <React.Fragment key={v.key}>{v.val()}, </React.Fragment>
+                    <li>{v.val()}</li>
                 ))}
                 </span>
             </React.Fragment>
