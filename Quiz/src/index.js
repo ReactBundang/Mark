@@ -55,7 +55,8 @@ class Hello extends React.Component {
   render() {
     return(
       <div>
-        <Input type="textbox" className="text" onKeyPress={this.keyPressed} onChange={this.handleValueChange}/>
+        <Input type="textbox" className="text" onKeyPress={this.keyPressed} onChange={this.handleValueChange} value={this.state.input_value}/>
+        {/* <Input type="textbox" className="text" onKeyPress={this.keyPressed} onChange={this.handleValueChange}/> */}
         <Button color="primary" onClick={this.onClickAdd}>Add</Button>
          <h1>{this.state.input_value}</h1>
       </div>
@@ -119,7 +120,7 @@ class Board extends React.Component {
   getArr() {
     var divList= new Array();
     console.log(this.state.todos.length);
-    for(var i=0; i<this.state.todos.length-1; i++) {}
+    for(var i=0; i<this.state.todos.length; i++) {}
     {
       divList.push(<Checklist text={this.state.todos[i]}/>);
     }
