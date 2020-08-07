@@ -53,10 +53,10 @@ class Hello extends React.Component {
   }
 
   render() {
+    const {input_value} = this.state
     return(
       <div>
-        <Input type="textbox" className="text" onKeyPress={this.keyPressed} onChange={this.handleValueChange} value={this.state.input_value}/>
-        {/* <Input type="textbox" className="text" onKeyPress={this.keyPressed} onChange={this.handleValueChange}/> */}
+        <Input type="textbox" className="text" onKeyPress={this.keyPressed} onChange={this.handleValueChange} value={input_value} />
         <Button color="primary" onClick={this.onClickAdd}>Add</Button>
          <h1>{this.state.input_value}</h1>
       </div>

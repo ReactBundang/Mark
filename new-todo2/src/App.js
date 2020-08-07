@@ -10,22 +10,25 @@ const App= () => {
   const [todos, setTodos] = useState(['ddddd']);
   const [newTodo, setNewTodo] = useState(); //입력값 저장용.
 
-  
+  // input 키입력 onChange 이벤트
   const InputChanged = (e) => {
     setNewTodo(e.target.value);
   }
 
+  // firebase library 초기화
   fire();
-  getFireDB();
 
+  // 버튼 onClick event
   const addTodo=(e) => {
     e.preventDefault();
     setTodos([...todos, newTodo]);
   }
+
+  // 원하는 state 변경시 useEffect 호출되도록 설정 가능.
   useEffect(() => {
     console.log("useEffect");
-    //fire();
-  })
+    getFireDB();//fire();
+  }, [todos]);
 
   return (
     <>
