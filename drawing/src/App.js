@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSvgDrawing } from 'react-hooks-svgdrawing'
+import { Button,Input } from '@material-ui/core';
 import './App.css';
 
 const onClick = () => { /** Handle mousedown or click */ }
@@ -10,10 +11,14 @@ const Drawing = () => {
   return <div className="area" ref={renderRef} />
 }
 
+const aaa=(e)=>{
+}
+
 function App() {
   return (
     <div className="App">
-      <Drawing/>
+      <Button>Download</Button>
+      <Drawing onClick={aaa}/>
     </div>
   );
 }
