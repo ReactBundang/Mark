@@ -12,6 +12,7 @@ const Drawing = () => {
 }
 
 const aaa=(e)=>{
+  console.log(e);
 }
 
 function App() {
