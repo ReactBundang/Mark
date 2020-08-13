@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
+const apiKey = process.env.GOOGLE_MAP_API_KEY; 
+console.log(apiKey);
 
 const aaaa=()=> {
 console.log("aaa");
@@ -45,9 +49,10 @@ class SimpleMap extends Component {
   render() {
     return (
       // Important! Always set the container height explicitly
+      
       <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyBSxnuM31IkcCrwVAs0XwHWVgbdzzh22E4" }}
+          bootstrapURLKeys={{ key: apiKey }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
           options={createMapOptions}
