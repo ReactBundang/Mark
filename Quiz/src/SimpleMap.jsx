@@ -1,7 +1,35 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import Marker from './Marker';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
+
+
+const aaaa=()=> {
+console.log("aaa");
+}
+
+function createMapOptions(maps) {
+    // next props are exposed at maps
+    // "Animation", "ControlPosition", "MapTypeControlStyle", "MapTypeId",
+    // "NavigationControlStyle", "ScaleControlStyle", "StrokePosition", "SymbolPath", "ZoomControlStyle",
+    // "DirectionsStatus", "DirectionsTravelMode", "DirectionsUnitSystem", "DistanceMatrixStatus",
+    // "DistanceMatrixElementStatus", "ElevationStatus", "GeocoderLocationType", "GeocoderStatus", "KmlLayerStatus",
+    // "MaxZoomStatus", "StreetViewStatus", "TransitMode", "TransitRoutePreference", "TravelMode", "UnitSystem"
+
+    //[{"featureType":"all","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]}]
+    return {
+        MaxZoomStatus: 15,
+      zoomControlOptions: {
+        position: maps.ControlPosition.LEFT_CENTER,
+        style: maps.ZoomControlStyle.SMALL
+      },
+      mapTypeControlOptions: {
+        position: maps.ControlPosition.TOP_RIGHT
+      },
+      mapTypeControl: true
+    };
+  }
 
 class SimpleMap extends Component {
   static defaultProps = {
@@ -9,8 +37,10 @@ class SimpleMap extends Component {
       lat: 29.95,
       lng: 130.33
     },
+    styles: [{"featureType":"all","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]}],
     zoom: 0
   };
+
 
   render() {
     return (
@@ -20,12 +50,14 @@ class SimpleMap extends Component {
           bootstrapURLKeys={{ key: "AIzaSyBSxnuM31IkcCrwVAs0XwHWVgbdzzh22E4" }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
+          options={createMapOptions}
         >
           <AnyReactComponent
             lat={59.955413}
             lng={30.337844}
-            text="My Marker"
+            text="My Marker"            
           />
+          <Marker text="djaskldjsalkdjlkasd" onClick={aaaa}/>
         </GoogleMapReact>
       </div>
     );
