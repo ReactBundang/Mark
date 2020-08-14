@@ -73,7 +73,10 @@ export class MapContainer extends Component {
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
         const d = R * c; // in metres
-        alert(Math.floor(d/1000)+"KM far!");
+        if(d > 1000000)
+            alert(Math.floor(d/1000)+"KM far!");
+        else
+            alert("Awesome!");
         
       };
 
