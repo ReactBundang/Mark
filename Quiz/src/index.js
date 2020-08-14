@@ -34,15 +34,17 @@ const App= () => {
     console.log("useEffect");
   });
 
+  var randomIdx=0;
   const getRandomCity=()=>{
-    var randomIdx= Math.floor(Math.random()*wdata.length);
-    return wdata[randomIdx].city;
+    randomIdx= Math.floor(Math.random()*wdata.length);
+    //return wdata[randomIdx];
   }
 
   return (
     <div>
-      <h2>Do you know where is... <font color="#ff00ff">{getRandomCity()}</font>?</h2>
-      <GoogleMap/>
+      {getRandomCity()}
+      <h2>Do you know where is... <font color="#ff00ff">{wdata[randomIdx].city}</font>?</h2>
+      <GoogleMap selected={wdata[randomIdx]}/>
     </div>
   )
 }

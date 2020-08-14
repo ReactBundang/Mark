@@ -1,10 +1,10 @@
 import React, { Component }  from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import wdata from './data/worldcities.json';
 
 export class MapContainer extends Component {
     constructor(props) {
         super(props);
+        console.log(props);
         this.state= {
             fields: { location: {lat:0,lng:0}},
             currentLocation: {lat:0,lng:0}
@@ -55,12 +55,27 @@ export class MapContainer extends Component {
         map.panTo(location);
         console.log(location.lat());
         console.log(location.lng());
-      };
 
-    onMarkerClick(props, marker, e) {
-        console.log(e.latLng.lat());
-        console.log(e.latLng.lng());
-      }
+        const lat1= location.lat();
+        const lon1= location.lng();
+        const lat2= this.props.selected.lat;
+        const lon2= this.props.selected.lng;
+
+        const R = 6371e3; // metres
+        const φ1 = lat1 * Math.PI/180; // φ, λ in radians
+        const φ2 = lat2 * Math.PI/180;
+        const Δφ = (lat2-lat1) * Math.PI/180;
+        const Δλ = (lon2-lon1) * Math.PI/180;
+
+        const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+          Math.cos(φ1) * Math.cos(φ2) *
+          Math.sin(Δλ/2) * Math.sin(Δλ/2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        const d = R * c; // in metres
+        alert(Math.floor(d/1000)+"KM far!");
+        
+      };
 
   render() {
     return (
