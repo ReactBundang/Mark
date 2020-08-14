@@ -4,6 +4,7 @@ import './index.css';
 
 //import {fire,getFireDB,setFireDB} from './Firebase'
 import SimpleMap from './SimpleMap'
+import GoogleMap from './GoogleMap'
 
 import { Button,Input } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
@@ -34,7 +35,7 @@ const App= () => {
 
   return (
     <div>
-      <SimpleMap/>
+      <GoogleMap/>
     </div>
   )
 }

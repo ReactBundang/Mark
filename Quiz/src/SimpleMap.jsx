@@ -35,6 +35,11 @@ function createMapOptions(maps) {
     };
   }
 
+  const handleApiLoaded = (map, maps) => {
+    // use map and maps objects
+    map.style= [{"featureType":"all","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]}];
+  };
+
 class SimpleMap extends Component {
   static defaultProps = {
     center: {
@@ -52,15 +57,16 @@ class SimpleMap extends Component {
       
       <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: apiKey }}
+          bootstrapURLKeys={{ key: "AIzaSyBoQU60M7zCX7m5SywNmDU2cJo7jYT02A4" }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
-          options={createMapOptions}
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
         >
           <AnyReactComponent
             lat={59.955413}
             lng={30.337844}
-            text="My Marker"            
+            text="My Marker"
           />
           <Marker text="djaskldjsalkdjlkasd" onClick={aaaa}/>
         </GoogleMapReact>
