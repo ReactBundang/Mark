@@ -10,8 +10,10 @@
     "dotenv": "^8.2.0",
     "google-map-react": "^2.0.8",
     "google-maps-react": "^2.0.6",
+    "json-loader": "^0.5.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-papaparse": "^3.7.1",
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.1"
   },

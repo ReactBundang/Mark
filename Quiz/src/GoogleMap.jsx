@@ -1,5 +1,6 @@
 import React, { Component }  from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import wdata from './data/worldcities.json';
 
 export class MapContainer extends Component {
     constructor(props) {
@@ -63,7 +64,7 @@ export class MapContainer extends Component {
 
   render() {
     return (
-        <div style={{ height: '100vh', width: '100%' }}>
+        <div style={{ height: '50%', width: '100%' }}>
             <Map google={this.props.google} zoom={1}
                 onClick={(t, map, c) => this.addMarker(c.latLng, map)}>
                     <Marker position={this.state.fields.location} />

@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import wdata from './data/worldcities.json';
 
 //import {fire,getFireDB,setFireDB} from './Firebase'
-import SimpleMap from './SimpleMap'
+//import SimpleMap from './SimpleMap'
 import GoogleMap from './GoogleMap'
 
 import { Button,Input } from '@material-ui/core';
@@ -33,8 +34,14 @@ const App= () => {
     console.log("useEffect");
   });
 
+  const getRandomCity=()=>{
+    var randomIdx= Math.floor(Math.random()*wdata.length);
+    return wdata[randomIdx].city;
+  }
+
   return (
     <div>
+      <h2>Do you know where is... <font color="#ff00ff">{getRandomCity()}</font>?</h2>
       <GoogleMap/>
     </div>
   )
