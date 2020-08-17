@@ -1,10 +1,16 @@
 import React, { Component }  from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import {fire,getFireDB,setFireDB} from './Firebase'
+
 
 export class MapContainer extends Component {
     constructor(props) {
         super(props);
         console.log(props);
+
+        fire();
+        getFireDB();
+
         this.state= {
             fields: { location: {lat:0,lng:0}},
             currentLocation: {lat:0,lng:0}
@@ -12,6 +18,7 @@ export class MapContainer extends Component {
     };
     
     async componentDidMount() {
+    
         const { lat, lng } = await this.getcurrentLocation();
         this.setState(prev => ({
           fields: {
@@ -85,7 +92,7 @@ export class MapContainer extends Component {
         <div style={{ height: '50%', width: '100%' }}>
             <Map google={this.props.google} zoom={1}
                 onClick={(t, map, c) => this.addMarker(c.latLng, map)}>
-                    <Marker position={this.state.fields.location} />
+                    <Marker position={this.state.fields.location} title="mark"/>
             </Map>
       </div>
     );
