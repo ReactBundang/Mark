@@ -1,11 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import wdata from './data/worldcities.json';
-
 //import {fire,getFireDB,setFireDB} from './Firebase'
 //import SimpleMap from './SimpleMap'
-import GoogleMap from './GoogleMap'
 
 import { Button,Input } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
@@ -14,8 +11,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-
-
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import Home from './Home';
+import GameMain from './GameMain';
 
 const App= () => {
 
@@ -29,23 +27,23 @@ const App= () => {
   // firebase library 초기화
   //fire();
 
-  // 원하는 state 변경시 useEffect 호출되도록 설정 가능.
-  useEffect(() => {
-    console.log("useEffect");
-  });
-
-  var randomIdx=0;
-  const getRandomCity=()=>{
-    randomIdx= Math.floor(Math.random()*wdata.length);
-    //return wdata[randomIdx];
-  }
 
   return (
+    <Router>
     <div>
-      {getRandomCity()}
-      <h2>Do you know where is... <font color="#ff00ff">{wdata[randomIdx].city}</font>?</h2>
-      <GoogleMap selected={wdata[randomIdx]}/>
+      <ul>
+        <li>
+          <Link to="/single">Singleplay</Link>
+        </li>
+        <li>
+          <Link to="/multi">Multiplay</Link>
+        </li>
+      </ul>
+      <hr />
+      <Route path="/single" exact={true} component={Home} />
+      <Route path="/multi" component={GameMain} />
     </div>
+    </Router>
   )
 }
 
