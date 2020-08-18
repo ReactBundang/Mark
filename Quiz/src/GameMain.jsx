@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 const GameMain =() =>
 {
-    
     // 원하는 state 변경시 useEffect 호출되도록 설정 가능.
     useEffect(() => {
         console.log("useEffect");
