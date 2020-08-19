@@ -6,6 +6,7 @@ import {fire,createEmailID, getFireDB,setFireDB} from './Firebase'
 
 import { Button,Input, Card, CardActions, CardContent,Typography } from '@material-ui/core';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Swal from 'sweetalert2';
 
 const LoginPage=()=> {
   const [myID, setID] = useState();
@@ -20,6 +21,7 @@ const LoginPage=()=> {
 
   if (loading) {
       console.log("loading...");
+      return(<div><p>Loading...</p></div>)
   }
   if (error) {
     console.log("Error: "+{error});
@@ -27,6 +29,7 @@ const LoginPage=()=> {
   if (user) {
     return (
       <div>
+        {Swal.hideLoading()}
         <p>Current User: {user.email}</p>
         <Button onClick={Logout}>Log out</Button>
       </div>
@@ -43,13 +46,14 @@ const LoginPage=()=> {
   }
 
   const Login=()=>{
+      Swal.showLoading();
       console.log("login with " + myID+" / " +myPW);
 
       try{
         firebase.auth().signInWithEmailAndPassword(myID, myPW);
       }catch(error){
         if(error.code==="auth/invalid-email") {
-          alert("Please enter your email correctly.");
+          Swal.fire("Please enter your email correctly.");
         }
         else if(error.code==="auth/argument-error") {
           Swal.fire("Please enter your password.");
@@ -58,6 +62,7 @@ const LoginPage=()=> {
           alert(error);
         }
       }
+      
       setID("");
       setPW("");
   }
