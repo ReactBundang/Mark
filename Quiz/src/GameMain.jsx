@@ -3,12 +3,28 @@ import GoogleMap from './GoogleMap'
 import wdata from './data/worldcities.json';
 import { Link } from 'react-router-dom';
 
+import * as firebase from 'firebase'
+import {fire} from './Firebase'
+import { useAuthState } from 'react-firebase-hooks/auth';
+
 const GameMain =() =>
 {
     // 원하는 state 변경시 useEffect 호출되도록 설정 가능.
     useEffect(() => {
         console.log("useEffect");
     });
+
+    fire();
+    const [user, loading, error] = useAuthState(firebase.auth());
+    if(loading) {
+      return(<div>Loading...</div>)
+    }
+    if (error) {
+      console.log("Error: "+{error});
+    }
+    if(user===null){
+      return(<div>Please login first</div>)
+    }
 
     var randomIdx=0;
     const getRandomCity=()=>{

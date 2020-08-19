@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 import * as firebase from 'firebase'
 import {fire,createEmailID, getFireDB,setFireDB} from './Firebase'
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { Button,Input, Card, CardActions, CardContent,Typography } from '@material-ui/core';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import Swal from 'sweetalert2';
 
 const LoginPage=()=> {
