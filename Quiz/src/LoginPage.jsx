@@ -2,7 +2,7 @@ import React, {useEffect,useState} from 'react';
 import { Link } from 'react-router-dom';
 
 import * as firebase from 'firebase'
-import {fire,getFireDB,setFireDB} from './Firebase'
+import {fire,createEmailID, getFireDB,setFireDB} from './Firebase'
 
 import { Button,Input, Card, CardActions, CardContent,Typography } from '@material-ui/core';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -13,23 +13,26 @@ const LoginPage=()=> {
     
   fire();
   const [user, loading, error] = useAuthState(firebase.auth());
-
-  
+    
+  const Logout=()=>{
+    firebase.auth().signOut();
+  }
 
   if (loading) {
       console.log("loading...");
   }
   if (error) {
-    alert("Error: "+{error});
+    console.log("Error: "+{error});
   }
   if (user) {
     return (
       <div>
         <p>Current User: {user.email}</p>
-        <button onClick="">Log out</button>
+        <Button onClick={Logout}>Log out</Button>
       </div>
     );
   }
+
   // input 키입력 onChange 이벤트
   const InputIDChanged = (e) => {
     setID(e.target.value);
@@ -41,12 +44,29 @@ const LoginPage=()=> {
 
   const Login=()=>{
       console.log("login with " + myID+" / " +myPW);
-      firebase.auth().signInWithEmailAndPassword(myID, myPW);
+
+      try{
+        firebase.auth().signInWithEmailAndPassword(myID, myPW);
+      }catch(error){
+        if(error.code==="auth/invalid-email") {
+          alert("Please enter your email correctly.");
+        }
+        else if(error.code==="auth/argument-error") {
+          Swal.fire("Please enter your password.");
+        }
+        else{
+          alert(error);
+        }
+      }
+      setID("");
+      setPW("");
   }
   
   const Signup=()=>{
-      
+    console.log("signup with " + myID+" / " +myPW);
+      createEmailID(myID, myPW);
   }
+
 
   const KeyPressed = (e) => {
     if(e.key === 'Enter') {

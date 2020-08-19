@@ -4,7 +4,7 @@ import './index.css';
 //import {fire,getFireDB,setFireDB} from './Firebase'
 //import SimpleMap from './SimpleMap'
 
-import { Button,Input, Card, CardActions, CardContent,Typography } from '@material-ui/core';
+import { AppBar, TabPanel, Tabs, Tab, Paper, Button,Input, Card, CardActions, CardContent,Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
