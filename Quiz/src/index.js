@@ -28,11 +28,11 @@ const App= () => {
     <Router>
     <div>
       <Button>
-          <Link to="/login">Login</Link>
+        <Link to="/login">Login</Link>
       </Button>
       <Button>
-          <Link to="/multi">Multiplay</Link>
-        </Button>
+        <Link to="/multi">Multiplay</Link>
+      </Button>
       <hr />
       <Route path="/login" exact={true} component={LoginPage} />
       <Route path="/multi" component={GameMain} />

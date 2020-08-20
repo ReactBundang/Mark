@@ -37,11 +37,12 @@ let firebaseConfig = {
       })
   }
 
-  export const setFireDB=(last)=>{
-        var a= database.ref('/todos/').once('value');
-        a.then(res=>{
-            //console.log(res.val());
-            //console.log(last);
-            database.ref(`todos/`).set([...res.val(),last]);
-        })
+  export const setFireDB=(path, key, value)=>{
+        var a= database.ref(path).child(key);
+        a.set(`{${key}: ${value}}`);
+    }
+
+export const setLocationInfoDB=(key, location)=>{
+        var a= database.ref('/users/').child(key);
+        a.set(`location:{lat: ${location.lat()},lng: ${location.lng()}}`);
     }
