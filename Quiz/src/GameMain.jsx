@@ -36,7 +36,7 @@ const GameMain =() =>
         <div>
           {getRandomCity()}
           <h2>Do you know where is... <font color="#ff00ff">{wdata[randomIdx].city}</font>?</h2>
-          <GoogleMap selected={wdata[randomIdx]}/>
+          <GoogleMap selected={wdata[randomIdx]} user={user}/>
         </div>
       )
 }

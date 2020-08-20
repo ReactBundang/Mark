@@ -37,7 +37,11 @@ export const MapContainer=(props)=>{
       setFields({ ...fields, location: location2});
       map.panTo(location2);
 
-      setLocationInfoDB('thks10', location2);
+      if(props.user)
+      {
+        console.log(props.user.uid);
+        setLocationInfoDB(props.user.uid, location2);
+      }
       
       console.log(location2.lat());
       console.log(location2.lng());
