@@ -11,6 +11,13 @@ import IMG_maker1 from './data/marker1.png';
 import IMG_maker2 from './data/marker2.png';
 import IMG_maker3 from './data/marker3.png';
 import IMG_maker4 from './data/marker4.png';
+// image array
+const IMG_markers=[
+  require('./data/marker1.png'),
+  require('./data/marker2.png'),
+  require('./data/marker3.png'),
+  require('./data/marker4.png')
+]
 
 export const MapContainer=(props)=>{
   const [fields, setFields]=useState({ location: {lat:0,lng:0}});
@@ -73,9 +80,9 @@ export const MapContainer=(props)=>{
   
       const d = R * c; // in metres
       if(d > 1000000)
-          Swal.fire(Math.floor(d/1000)+"KM far!");
+          alert(Math.floor(d/1000)+"KM far!");
       else
-          Swal.fire("Awesome!");
+          alert("Awesome!");
     };
 
   useEffect(async ()=> {
@@ -84,32 +91,24 @@ export const MapContainer=(props)=>{
     setCurrentLocation({ lat2,lng2 });
   }, []);
 
-  const mapStyle = [
-    {
-      featureType: 'landscape.man_made',
-      elementType: 'geometry.fill',
-      stylers: [
-        {
-          color: '#dceafa'
-        }
-      ]
-    },
-    ]
 
   return(<div>
-          <Map mapTypeControl={false} streetViewControl={false} google={props.google} zoom={1}
+          <Map mapTypeControl={false} streetViewControl={false} google={props.google} zoom={2}
               onClick={(t, map, c) => addMarker(c.latLng, map)}>
 
             {!loading && snapshots && (
                         <React.Fragment>
+                          {snapshots.map((v)=> {
+                            console.log(v.val().location);
+                          })}
                         </React.Fragment>
                         )}
                 <Marker position={fields.location}
-                      icon={{url:IMG_maker1}}/>
+                      icon={{url:IMG_markers[0]}}/>
                 <Marker position={fields2.location}
-                        icon={{url:IMG_maker2}}/>
+                        icon={{url:IMG_markers[1]}}/>
 
-                <InfoWindow>
+                <InfoWindow visible={true}>
                 <div>
                   <h1>hdajksdhklas</h1>
                 </div>
