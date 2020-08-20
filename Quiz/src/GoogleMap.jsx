@@ -3,6 +3,7 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 export const MapContainer=(props)=>{
   const [fields, setFields]=useState({ location: {lat:0,lng:0}});
+  const [fields2, setFields2]=useState({ location: {lat:50,lng:10}});
   const [currentLocation, setCurrentLocation]= useState({lat:0,lng:0});
   
     const getcurrentLocation=()=> {
@@ -24,15 +25,10 @@ export const MapContainer=(props)=>{
     }
   
     const addMarker = (location2, map) => {
-      // this.setState(prev => ({
-      //   fields: {
-      //     ...prev.fields,
-      //     location
-      //   }
-      // }));
+      
       setFields({ ...fields, location: location2});
-      //setFields({...fields, location:{lat:location2.lat, lng:location2.lng}});
       map.panTo(location2);
+      
       console.log(location2.lat());
       console.log(location2.lng());
   
@@ -68,7 +64,10 @@ export const MapContainer=(props)=>{
   return(<div style={{ height: '50%', width: '100%' }}>
           <Map google={props.google} zoom={1}
               onClick={(t, map, c) => addMarker(c.latLng, map)}>
-                <Marker position={fields.location} />
+                <Marker position={fields.location}
+                      icon={{url:"https://mitchin.s3.ap-northeast-2.amazonaws.com/backup/react/icons/marker1.png"}}/>
+                <Marker position={fields2.location}
+                        icon={{url:"https://mitchin.s3.ap-northeast-2.amazonaws.com/backup/react/icons/marker2.png"}}/>
           </Map>
         </div>);
 }
