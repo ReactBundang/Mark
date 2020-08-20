@@ -6,6 +6,12 @@ import {setLocationInfoDB} from './Firebase'
 import { useList, useObject, useListVals } from 'react-firebase-hooks/database';
 import Swal from 'sweetalert2';
 
+// images
+import IMG_maker1 from './data/marker1.png';
+import IMG_maker2 from './data/marker2.png';
+import IMG_maker3 from './data/marker3.png';
+import IMG_maker4 from './data/marker4.png';
+
 export const MapContainer=(props)=>{
   const [fields, setFields]=useState({ location: {lat:0,lng:0}});
   const [fields2, setFields2]=useState({ location: {lat:50,lng:10}});
@@ -39,8 +45,11 @@ export const MapContainer=(props)=>{
 
       if(props.user)
       {
-        console.log(props.user.uid);
-        setLocationInfoDB(props.user.uid, location2);
+        // var key= props.user.displayName;
+        // console.log(key);
+        // if(key==null)
+        //   key=props.user.uid;
+        setLocationInfoDB(props.user.uid, location2, props.user.displayName);
       }
       
       console.log(location2.lat());
@@ -75,8 +84,20 @@ export const MapContainer=(props)=>{
     setCurrentLocation({ lat2,lng2 });
   }, []);
 
-  return(<div style={{ height: '50%', width: '100%' }}>
-          <Map google={props.google} zoom={1}
+  const mapStyle = [
+    {
+      featureType: 'landscape.man_made',
+      elementType: 'geometry.fill',
+      stylers: [
+        {
+          color: '#dceafa'
+        }
+      ]
+    },
+    ]
+
+  return(<div>
+          <Map mapTypeControl={false} streetViewControl={false} google={props.google} zoom={1}
               onClick={(t, map, c) => addMarker(c.latLng, map)}>
 
             {!loading && snapshots && (
@@ -84,9 +105,15 @@ export const MapContainer=(props)=>{
                         </React.Fragment>
                         )}
                 <Marker position={fields.location}
-                      icon={{url:"https://mitchin.s3.ap-northeast-2.amazonaws.com/backup/react/icons/marker1.png"}}/>
+                      icon={{url:IMG_maker1}}/>
                 <Marker position={fields2.location}
-                        icon={{url:"https://mitchin.s3.ap-northeast-2.amazonaws.com/backup/react/icons/marker2.png"}}/>
+                        icon={{url:IMG_maker2}}/>
+
+                <InfoWindow>
+                <div>
+                  <h1>hdajksdhklas</h1>
+                </div>
+                </InfoWindow>
           </Map>
         </div>);
 }

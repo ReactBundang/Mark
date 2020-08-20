@@ -19,6 +19,27 @@ let firebaseConfig = {
     database= firebase.database();
   }
 
+  // Refer to https://firebase.google.com/docs/auth/web/google-signin
+  export const createViaGoogle=()=> {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        // ...
+      }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      });
+  }
+
   export const createEmailID=(email, password)=>{
       firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
@@ -42,7 +63,7 @@ let firebaseConfig = {
         a.set(`{${key}: ${value}}`);
     }
 
-export const setLocationInfoDB=(key, location)=>{
+export const setLocationInfoDB=(key, location, dispName)=>{
         var a= database.ref('/users/').child(key);
-        a.set(`location:{lat: ${location.lat()},lng: ${location.lng()}}`);
+        a.set(`location:{lat: ${location.lat()},lng: ${location.lng()}, name:${dispName}}`);
     }

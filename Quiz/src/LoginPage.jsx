@@ -2,8 +2,10 @@ import React, {useEffect,useState} from 'react';
 import { Link } from 'react-router-dom';
 
 import * as firebase from 'firebase'
-import {fire,createEmailID, getFireDB,setFireDB} from './Firebase'
+import {fire,createEmailID, createViaGoogle} from './Firebase'
 import { useAuthState } from 'react-firebase-hooks/auth';
+
+import IMG_btn_google from './data/btn_google_signin_light_normal_web.png';
 
 import { Button,Input, Card, CardActions, CardContent,Typography } from '@material-ui/core';
 import Swal from 'sweetalert2';
@@ -78,8 +80,6 @@ const LoginPage=()=> {
       e.preventDefault();
     }
   }
-
-
     return(
         <Card className="root" id="card_main">
             <CardContent>
@@ -95,6 +95,9 @@ const LoginPage=()=> {
                 <Button onClick={Signup}>Sign Up</Button>
             </form>
             </CardContent>
+            <Button onClick={createViaGoogle}>
+              <img src={IMG_btn_google}/>
+            </Button>
         </Card>
     )
 }
