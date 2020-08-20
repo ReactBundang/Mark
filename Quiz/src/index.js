@@ -27,14 +27,12 @@ const App= () => {
   return (
     <Router>
     <div>
-      <ul>
-        <li>
+      <Button>
           <Link to="/login">Login</Link>
-        </li>
-        <li>
+      </Button>
+      <Button>
           <Link to="/multi">Multiplay</Link>
-        </li>
-      </ul>
+        </Button>
       <hr />
       <Route path="/login" exact={true} component={LoginPage} />
       <Route path="/multi" component={GameMain} />
