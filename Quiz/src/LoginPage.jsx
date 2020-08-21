@@ -21,6 +21,18 @@ const LoginPage=()=> {
     firebase.auth().signOut();
   }
 
+  //https://firebase.google.com/docs/auth/web/manage-users
+  const changeYourName=(e)=>{
+    var user = firebase.auth().currentUser;
+    user.updateProfile({
+      displayName: e.target.value
+    }).then(function() {
+      // Update successful.
+    }).catch(function(error) {
+      // An error happened.
+    });
+  }
+
   if (loading) {
       console.log("loading...");
       return(<div><p>Loading...</p></div>)
@@ -33,6 +45,9 @@ const LoginPage=()=> {
       <div>
         {Swal.hideLoading()}
         <p>Current User: {user.email}</p>
+        <p>displayName: <Input type="text" onChange={changeYourName} value={user.displayName}/>
+          </p>
+        <p>UID: {user.uid}</p>
         <Button onClick={Logout}>Log out</Button>
       </div>
     );

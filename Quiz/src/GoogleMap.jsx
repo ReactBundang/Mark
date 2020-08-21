@@ -4,7 +4,9 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import * as firebase from 'firebase'
 import {setLocationInfoDB} from './Firebase'
 import { useList, useObject, useListVals } from 'react-firebase-hooks/database';
-import Swal from 'sweetalert2';
+//import Swal from 'sweetalert2';
+
+import PlayerInfo from './PlayerInfo'
 
 // images
 import IMG_maker1 from './data/marker1.png';
@@ -20,87 +22,74 @@ const IMG_markers=[
 ]
 
 export const MapContainer=(props)=>{
-  const [fields, setFields]=useState({ location: {lat:0,lng:0}});
-  const [fields2, setFields2]=useState({ location: {lat:50,lng:10}});
-  const [currentLocation, setCurrentLocation]= useState({lat:0,lng:0});
+  //const [fields, setFields]=useState({ location: {lat:0,lng:0}});
+  //const [fields2, setFields2]=useState({ location: {lat:50,lng:10}});
+  const [howFar, setHowFar]=useState(0);
+  //const [currentLocation, setCurrentLocation]= useState({lat:0,lng:0});
 
   const db= firebase.database();
   const [snapshots, loading, error] = useList(db.ref('users'));
   
-    const getcurrentLocation=()=> {
-      if (navigator && navigator.geolocation) {
-        return new Promise((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(pos => {
-            const coords = pos.coords;
-            resolve({
-              lat: coords.latitude,
-              lng: coords.longitude
-            });
-          });
-        });
-      }
-      return {
-        lat: 0,
-        lng: 0
-      };
-    }
-  
-    const addMarker = (location2, map) => {
-      
-      setFields({ ...fields, location: location2});
-      map.panTo(location2);
+  const addMarker = (location2, map) => {
+    
+    //setFields({ ...fields, location: location2});
+    map.panTo(location2);
 
-      if(props.user)
-      {
-        // var key= props.user.displayName;
-        // console.log(key);
-        // if(key==null)
-        //   key=props.user.uid;
-        setLocationInfoDB(props.user.uid, location2, props.user.displayName);
-      }
-      
-      console.log(location2.lat());
-      console.log(location2.lng());
-  
-      const lat1= location2.lat();
-      const lon1= location2.lng();
-      const lat2= props.selected.lat;
-      const lon2= props.selected.lng;
-  
-      const R = 6371e3; // metres
-      const φ1 = lat1 * Math.PI/180; // φ, λ in radians
-      const φ2 = lat2 * Math.PI/180;
-      const Δφ = (lat2-lat1) * Math.PI/180;
-      const Δλ = (lon2-lon1) * Math.PI/180;
-  
-      const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-        Math.cos(φ1) * Math.cos(φ2) *
-        Math.sin(Δλ/2) * Math.sin(Δλ/2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  
-      const d = R * c; // in metres
-      if(d > 1000000)
-          alert(Math.floor(d/1000)+"KM far!");
-      else
-          alert("Awesome!");
-    };
+    console.log(location2.lat());
+    console.log(location2.lng());
+
+    const lat1= location2.lat();
+    const lon1= location2.lng();
+    const lat2= props.selected.lat;
+    const lon2= props.selected.lng;
+
+    const R = 6371e3; // metres
+    const φ1 = lat1 * Math.PI/180; // φ, λ in radians
+    const φ2 = lat2 * Math.PI/180;
+    const Δφ = (lat2-lat1) * Math.PI/180;
+    const Δλ = (lon2-lon1) * Math.PI/180;
+
+    const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+      Math.cos(φ1) * Math.cos(φ2) *
+      Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    const d = R * c; // in metres
+    var inKM= Math.floor(d/1000);
+    setHowFar(inKM);
+
+    if(props.user) {
+      setLocationInfoDB(props.user.uid, location2, props.user.displayName, inKM);
+    }
+
+    if(d > 1000000)
+    {
+        //alert(inKM+"KM far!");
+    }
+    else
+        alert("Awesome!");
+  };
 
   useEffect(async ()=> {
-    const { lat2, lng2 } = await getcurrentLocation();
-    setFields({ ...fields, location: {lat:lat2, lng:lng2 }});
-    setCurrentLocation({ lat2,lng2 });
+    // const { lat2, lng2 } = await getcurrentLocation();
+    // setFields({ ...fields, location: {lat:lat2, lng:lng2 }});
+    // setCurrentLocation({ lat2,lng2 });
   }, []);
 
   return(<div>
+          {snapshots.map((v, idx)=> {
+            var res= JSON.parse(v.val());
+            console.log(res);
+            return(<PlayerInfo idx={idx} name={res[2]} howfar={res[3]}/>);
+          })}
           <Map mapTypeControl={false} streetViewControl={false} google={props.google} zoom={2}
               onClick={(t, map, c) => addMarker(c.latLng, map)}>
 
                   {snapshots.map((v, idx)=> {
                     var res= JSON.parse(v.val());
-                    console.log(idx);
                     //var res= v.val().split(",");
                     var locationInfo= {lat:res[0],lng:res[1]};
-                    console.log(locationInfo);
+                    //console.log(locationInfo);
                     return(<Marker position={locationInfo} key={res} icon={{url:IMG_markers[idx]}}/>);
                     //
                     //const test= JSON.parse(v.val());
@@ -111,11 +100,11 @@ export const MapContainer=(props)=>{
                 {/* <Marker position={fields2.location}
                         icon={{url:IMG_markers[1]}}/> */}
 
-                <InfoWindow visible={true}>
+                {/* <InfoWindow visible={true}>
                 <div>
                   <h1>hdajksdhklas</h1>
                 </div>
-                </InfoWindow>
+                </InfoWindow> */}
           </Map>
         </div>);
 }

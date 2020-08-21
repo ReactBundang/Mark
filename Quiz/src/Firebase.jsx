@@ -63,9 +63,9 @@ let firebaseConfig = {
         a.set(`{${key}: ${value}}`);
     }
 
-export const setLocationInfoDB=(key, location, dispName)=>{
+export const setLocationInfoDB=(key, location, dispName, howFar)=>{
         var a= database.ref('/users/').child(key);
-        var obj= `{lat: ${location.lat()},lng: ${location.lng()}, name:${dispName}}`;
-        var arr= [location.lat(), location.lng(), dispName];
+        //var obj= `{lat: ${location.lat()},lng: ${location.lng()}, name:${dispName}}`;
+        var arr= [location.lat(), location.lng(), dispName, howFar];
         a.set(JSON.stringify(arr));
     }
