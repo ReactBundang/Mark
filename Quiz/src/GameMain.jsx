@@ -1,6 +1,6 @@
 import React, {Component, useEffect} from 'react'
 import GoogleMap from './GoogleMap'
-import wdata from './data/worldcities.json';
+import wdata from './data/worldcities_lv1.json';
 import { Link } from 'react-router-dom';
 
 import * as firebase from 'firebase'

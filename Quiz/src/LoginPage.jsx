@@ -2,7 +2,7 @@ import React, {useEffect,useState} from 'react';
 import { Link } from 'react-router-dom';
 
 import * as firebase from 'firebase'
-import {fire,createEmailID, createViaGoogle} from './Firebase'
+import {fire,createEmailID, createViaGoogle, LogoutAndDelteSession} from './Firebase'
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import IMG_btn_google from './data/btn_google_signin_light_normal_web.png';
@@ -18,6 +18,8 @@ const LoginPage=()=> {
   const [user, loading, error] = useAuthState(firebase.auth());
     
   const Logout=()=>{
+    var user = firebase.auth().currentUser;
+    LogoutAndDelteSession(user.uid);
     firebase.auth().signOut();
   }
 
