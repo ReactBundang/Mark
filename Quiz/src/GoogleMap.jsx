@@ -99,7 +99,10 @@ export const MapContainer=(props)=>{
             {!loading && snapshots && (
                         <React.Fragment>
                           {snapshots.map((v)=> {
-                            console.log(v.val().location);
+                            //let obj= JSON.parse(v.val());
+                            //const test= JSON.parse(v.val());
+                            //console.log(test.lat);
+                            //console.log(obj.lat);
                           })}
                         </React.Fragment>
                         )}
