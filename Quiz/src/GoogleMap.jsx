@@ -25,6 +25,7 @@ export const MapContainer=(props)=>{
   //const [fields, setFields]=useState({ location: {lat:0,lng:0}});
   //const [fields2, setFields2]=useState({ location: {lat:50,lng:10}});
   const [howFar, setHowFar]=useState(0);
+  const [score, setScore]=useState(0);
   //const [currentLocation, setCurrentLocation]= useState({lat:0,lng:0});
 
   const db= firebase.database();
@@ -59,15 +60,16 @@ export const MapContainer=(props)=>{
     setHowFar(inKM);
 
     if(props.user) {
-      setLocationInfoDB(props.user.uid, location2, props.user.displayName, inKM);
+      setLocationInfoDB(props.user.uid, location2, props.user.displayName, inKM, score);
     }
 
     if(d > 1000000)
     {
         //alert(inKM+"KM far!");
-    }
-    else
+    } else {
+        setScore(score+1);
         alert("Awesome!");
+    }
   };
 
   useEffect(async ()=> {
@@ -80,7 +82,7 @@ export const MapContainer=(props)=>{
           {snapshots.map((v, idx)=> {
             var res= JSON.parse(v.val());
             console.log(res);
-            return(<PlayerInfo idx={idx} name={res[2]} howfar={res[3]}/>);
+            return(<PlayerInfo idx={idx} name={res[2]} howfar={res[3]} score={res[4]}/>);
           })}
           <Map mapTypeControl={false} streetViewControl={false} google={props.google} zoom={2}
               onClick={(t, map, c) => addMarker(c.latLng, map)}>

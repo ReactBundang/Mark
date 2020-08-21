@@ -5,6 +5,7 @@ import * as firebase from 'firebase'
 import {fire,createEmailID, createViaGoogle, LogoutAndDelteSession} from './Firebase'
 import { useAuthState } from 'react-firebase-hooks/auth';
 
+// image
 import IMG_btn_google from './data/btn_google_signin_light_normal_web.png';
 
 import { Button,Input, Card, CardActions, CardContent,Typography } from '@material-ui/core';
