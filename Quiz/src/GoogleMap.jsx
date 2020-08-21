@@ -91,25 +91,25 @@ export const MapContainer=(props)=>{
     setCurrentLocation({ lat2,lng2 });
   }, []);
 
-
   return(<div>
           <Map mapTypeControl={false} streetViewControl={false} google={props.google} zoom={2}
               onClick={(t, map, c) => addMarker(c.latLng, map)}>
 
-            {!loading && snapshots && (
-                        <React.Fragment>
-                          {snapshots.map((v)=> {
-                            //let obj= JSON.parse(v.val());
-                            //const test= JSON.parse(v.val());
-                            //console.log(test.lat);
-                            //console.log(obj.lat);
-                          })}
-                        </React.Fragment>
-                        )}
-                <Marker position={fields.location}
-                      icon={{url:IMG_markers[0]}}/>
-                <Marker position={fields2.location}
-                        icon={{url:IMG_markers[1]}}/>
+                  {snapshots.map((v, idx)=> {
+                    var res= JSON.parse(v.val());
+                    console.log(idx);
+                    //var res= v.val().split(",");
+                    var locationInfo= {lat:res[0],lng:res[1]};
+                    console.log(locationInfo);
+                    return(<Marker position={locationInfo} key={res} icon={{url:IMG_markers[idx]}}/>);
+                    //
+                    //const test= JSON.parse(v.val());
+                    // "{lat: 50.37748802942986,lng: 99.05832701094614, name:null}"
+                    //"\"{lat: 47.99839155402875,lng: 31.79933042372131, name:null}\""
+                  })}
+                
+                {/* <Marker position={fields2.location}
+                        icon={{url:IMG_markers[1]}}/> */}
 
                 <InfoWindow visible={true}>
                 <div>
