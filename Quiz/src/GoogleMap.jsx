@@ -1,4 +1,6 @@
-import React, { Component, useState, useEffect }  from 'react';
+import React, { useContext, useState, useEffect }  from 'react';
+import { AppContext } from "./GameMain";
+
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 import * as firebase from 'firebase'
@@ -22,6 +24,7 @@ const IMG_markers=[
 ]
 
 export const MapContainer=(props)=>{
+  const {round,setRound} = useContext(AppContext);
   //const [fields, setFields]=useState({ location: {lat:0,lng:0}});
   //const [fields2, setFields2]=useState({ location: {lat:50,lng:10}});
   const [howFar, setHowFar]=useState(0);
@@ -68,6 +71,7 @@ export const MapContainer=(props)=>{
         //alert(inKM+"KM far!");
     } else {
         setScore(score+1);
+        props.newRoundCallBack();
         alert("Awesome!");
     }
   };
