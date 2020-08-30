@@ -8,7 +8,10 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 // image
 import IMG_btn_google from './data/btn_google_signin_light_normal_web.png';
 
-import { Button,Input, Card, CardActions, CardContent,Typography } from '@material-ui/core';
+// import { Button,Input, Card, CardActions, CardContent,Typography } from '@material-ui/core';
+import { Button, Form, Input } from 'antd';
+import "antd/dist/antd.css";
+
 import Swal from 'sweetalert2';
 
 const LoginPage=()=> {
@@ -51,7 +54,7 @@ const LoginPage=()=> {
         <p>displayName: <Input type="text" onChange={changeYourName} value={user.displayName}/>
           </p>
         <p>UID: {user.uid}</p>
-        <Button onClick={Logout}>Log out</Button>
+        <Button type="primary" onClick={Logout}>Log out</Button>
       </div>
     );
   }
@@ -98,25 +101,43 @@ const LoginPage=()=> {
       e.preventDefault();
     }
   }
+
+  const onFinish = values => {
+    console.log('Received values of form: ', values);
+  }
     return(
-        <Card className="root" id="card_main">
-            <CardContent>
-            <Typography variant="h5" component="h2">Sign In</Typography>
-            <Typography className="second" color="textSecondary" gutterBottom>
-            With react hooks + firebase!</Typography>
-            <form action="" onKeyPress={KeyPressed}>
-                <Input type="text" onChange={InputIDChanged}/>
-                <br></br>
-                <Input type="password" onChange={InputPWChanged}/>
-                <br></br>
-                <Button onClick={Login}>Login</Button>
-                <Button onClick={Signup}>Sign Up</Button>
-            </form>
-            </CardContent>
-            <Button onClick={createViaGoogle}>
-              <img src={IMG_btn_google}/>
-            </Button>
-        </Card>
+      <Form name='normal_login' className='login-form' initialValues={{remember:true}}
+      onFinish={onFinish}>
+        <Form.Item name='username' rules={[{required:true, message:'Please input your name!'}]}>
+          <Input placeholder='Username'/>
+        </Form.Item>
+        <Form.Item name='password' rules={[{required:true, message:'Please input your password!'}]}>
+          <Input type='password' placeholder='Password'/>
+        </Form.Item>
+        <Form.Item shouldUpdate={true}>
+          {()=> (
+            <Button type='primary' htmlType='submit'/>
+          )}
+        </Form.Item>
+      </Form>
+        // <Card className="root" id="card_main">
+        //     <CardContent>
+        //     <Typography variant="h5" component="h2">Sign In</Typography>
+        //     <Typography className="second" color="textSecondary" gutterBottom>
+        //     With react hooks + firebase!</Typography>
+        //     <form action="" onKeyPress={KeyPressed}>
+        //         <Input type="text" onChange={InputIDChanged}/>
+        //         <br></br>
+        //         <Input type="password" onChange={InputPWChanged}/>
+        //         <br></br>
+        //         <Button onClick={Login}>Login</Button>
+        //         <Button onClick={Signup}>Sign Up</Button>
+        //     </form>
+        //     </CardContent>
+        //     <Button onClick={createViaGoogle}>
+        //       <img src={IMG_btn_google}/>
+        //     </Button>
+        // </Card>
     )
 }
 export default LoginPage;

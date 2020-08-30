@@ -76,7 +76,7 @@ export const MapContainer=(props)=>{
     }
   };
 
-  useEffect(async ()=> {
+  useEffect( ()=> {
     // const { lat2, lng2 } = await getcurrentLocation();
     // setFields({ ...fields, location: {lat:lat2, lng:lng2 }});
     // setCurrentLocation({ lat2,lng2 });
@@ -102,15 +102,6 @@ export const MapContainer=(props)=>{
                     // "{lat: 50.37748802942986,lng: 99.05832701094614, name:null}"
                     //"\"{lat: 47.99839155402875,lng: 31.79933042372131, name:null}\""
                   })}
-                
-                {/* <Marker position={fields2.location}
-                        icon={{url:IMG_markers[1]}}/> */}
-
-                {/* <InfoWindow visible={true}>
-                <div>
-                  <h1>hdajksdhklas</h1>
-                </div>
-                </InfoWindow> */}
           </Map>
         </div>);
 }

@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import "antd/dist/antd.css";
 //import {fire,getFireDB,setFireDB} from './Firebase'
 //import SimpleMap from './SimpleMap'
 
-import { AppBar, TabPanel, Tabs, Tab, Paper, Button,Input, Card, CardActions, CardContent,Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+// import { AppBar, TabPanel, Tabs, Tab, Paper, Button,Input, Card, CardActions, CardContent,Typography } from '@material-ui/core';
+// import { makeStyles } from '@material-ui/core/styles';
+import { Button } from 'antd';
 
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import LoginPage from './LoginPage';
@@ -27,7 +29,7 @@ const App= () => {
   return (
     <Router>
     <div>
-      <Button>
+      <Button type="primary">
         <Link to="/login">Login</Link>
       </Button>
       <Button>
