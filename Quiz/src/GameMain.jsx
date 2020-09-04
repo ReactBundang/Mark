@@ -4,7 +4,7 @@ import wdata from './data/worldcities_lv1.json';
 import { Link } from 'react-router-dom';
 
 import * as firebase from 'firebase'
-import {fire} from './Firebase'
+import {fire,getFireDB, setFireDB} from './Firebase'
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 export const AppContext = createContext();
@@ -13,10 +13,25 @@ const GameMain =() => {
   const [round, setRound] = useState(1);
   const [cityName, setCityName] = useState();
   const [city, setCity] = useState();
+  //const [IsNeedUpdate, SetNeedUpdate] = useState(false);
 
   var randomIdx=0;
-  const getRandomCity=()=>{
+  // if someone got it right, update to the next city.
+  const gotItRight=()=>{
+    //SetNeedUpdate(true);
+    console.log("gotItRight");
     randomIdx= Math.floor(Math.random()*wdata.length);
+    setFireDB('mapgame', 'target', randomIdx);
+    getRandomCity();
+  }
+
+  const getRandomCity= async ()=>{
+    var data= await getFireDB('mapgame', 'target');
+    //console.log(data);
+
+    randomIdx = parseInt(data);
+    //console.log(wdata);
+
     console.log('getRandomCity a new city:' + wdata[randomIdx].city);
     //return wdata[randomIdx];
     setCityName(wdata[randomIdx].city);
@@ -46,7 +61,7 @@ const GameMain =() => {
     <AppContext.Provider value={round}>
       <div>
         <h2>Do you know where is... <font color="#ff00ff">{cityName}</font>?</h2>
-        <GoogleMap selected={city} user={user} newRoundCallBack={getRandomCity}/>
+        <GoogleMap selected={city} user={user} newRoundCallBack={gotItRight}/>
       </div>
       </AppContext.Provider>
     )

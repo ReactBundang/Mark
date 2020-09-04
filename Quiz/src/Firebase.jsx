@@ -51,16 +51,17 @@ let firebaseConfig = {
       });
   }
 
-  export const getFireDB=()=> {
-      var a= database.ref('/places/').once('value');
-      a.then(res=>{
-          console.log(res.val()[1].item);
+  export const getFireDB= async (path, key)=> {
+      var a= database.ref(path+"/"+key).once('value');
+      return await a.then(res=>{
+          console.log(res.val());
+          return res.val();
       })
   }
 
   export const setFireDB=(path, key, value)=>{
         var a= database.ref(path).child(key);
-        a.set(`{${key}: ${value}}`);
+        a.set(`${value}`);
     }
 
 export const setLocationInfoDB=(uid, location, dispName, howFar, score)=>{

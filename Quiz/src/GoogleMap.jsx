@@ -85,8 +85,8 @@ export const MapContainer=(props)=>{
   return(<div>
           {snapshots.map((v, idx)=> {
             var res= JSON.parse(v.val());
-            console.log(res);
-            return(<PlayerInfo idx={idx} name={res[2]} howfar={res[3]} score={res[4]}/>);
+            //console.log(res);
+            return(<PlayerInfo idx={idx} key={idx} name={res[2]} howfar={res[3]} score={res[4]}/>);
           })}
           <Map mapTypeControl={false} streetViewControl={false} google={props.google} zoom={2}
               onClick={(t, map, c) => addMarker(c.latLng, map)}>
