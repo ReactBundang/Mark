@@ -15,8 +15,8 @@ import "antd/dist/antd.css";
 import Swal from 'sweetalert2';
 
 const LoginPage=()=> {
-  const [myID, setID] = useState();
-  const [myPW, setPW] = useState();
+  //const [myID, setID] = useState();
+  //const [myPW, setPW] = useState();
     
   fire();
   const [user, loading, error] = useAuthState(firebase.auth());
@@ -61,19 +61,19 @@ const LoginPage=()=> {
 
   // input 키입력 onChange 이벤트
   const InputIDChanged = (e) => {
-    setID(e.target.value);
+    //setID(e.target.value);
   }
 
   const InputPWChanged = (e) => {
-    setPW(e.target.value);
+    //setPW(e.target.value);
   }
 
-  const Login=()=>{
+  const Login= values =>{
       Swal.showLoading();
-      console.log("login with " + myID+" / " +myPW);
+      console.log("login with " + values.username+" / " +values.password);
 
       try{
-        firebase.auth().signInWithEmailAndPassword(myID, myPW);
+        firebase.auth().signInWithEmailAndPassword(values.username, values.password);
       }catch(error){
         if(error.code==="auth/invalid-email") {
           Swal.fire("Please enter your email correctly.");
@@ -86,13 +86,13 @@ const LoginPage=()=> {
         }
       }
       
-      setID("");
-      setPW("");
+      //setID("");
+      //setPW("");
   }
   
   const Signup=()=>{
-    console.log("signup with " + myID+" / " +myPW);
-      createEmailID(myID, myPW);
+    //console.log("signup with " + myID+" / " +myPW);
+      //createEmailID(myID, myPW);
   }
 
 
@@ -107,17 +107,15 @@ const LoginPage=()=> {
   }
     return(
       <Form name='normal_login' className='login-form' initialValues={{remember:true}}
-      onFinish={onFinish}>
+      onFinish={Login}>
         <Form.Item name='username' rules={[{required:true, message:'Please input your name!'}]}>
           <Input placeholder='Username'/>
         </Form.Item>
         <Form.Item name='password' rules={[{required:true, message:'Please input your password!'}]}>
           <Input type='password' placeholder='Password'/>
         </Form.Item>
-        <Form.Item shouldUpdate={true}>
-          {()=> (
-            <Button type='primary' htmlType='submit'/>
-          )}
+        <Form.Item>
+          <Button type='primary' htmlType='submit' className='login-form-button'>Sign in</Button>
         </Form.Item>
       </Form>
         // <Card className="root" id="card_main">
