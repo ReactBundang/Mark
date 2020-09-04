@@ -5,16 +5,11 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 import * as firebase from 'firebase'
 import {setLocationInfoDB} from './Firebase'
-import { useList, useObject, useListVals } from 'react-firebase-hooks/database';
+import { useList } from 'react-firebase-hooks/database';
 //import Swal from 'sweetalert2';
 
 import PlayerInfo from './PlayerInfo'
 
-// images
-import IMG_maker1 from './data/marker1.png';
-import IMG_maker2 from './data/marker2.png';
-import IMG_maker3 from './data/marker3.png';
-import IMG_maker4 from './data/marker4.png';
 // image array
 const IMG_markers=[
   require('./data/marker1.png'),

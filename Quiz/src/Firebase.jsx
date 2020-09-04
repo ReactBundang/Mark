@@ -52,7 +52,7 @@ let firebaseConfig = {
   }
 
   export const getFireDB= async (path, key)=> {
-      var a= database.ref(path+"/"+key).once('value');
+      var a= database.ref(path+"/"+key).on('value');
       return await a.then(res=>{
           console.log(res.val());
           return res.val();
